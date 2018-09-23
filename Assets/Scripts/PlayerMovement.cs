@@ -6,16 +6,18 @@ public class PlayerMovement : MonoBehaviour {
 
 	[SerializeField] float movementSpeed;
 	[SerializeField] float jumpSpeed;
+	[SerializeField] float jetPackSpeed;
 	[SerializeField] float lerpSpeed;
 	[SerializeField] float objectGravity;
 	public Rigidbody playerRigidbody;
-	public float lookSensitivityX;
-	public float lookSensitivityY;
+	[SerializeField] float lookSensitivityX;
+	[SerializeField] float lookSensitivityY;
 	private bool isOnGround;
 	private bool isRising;
-	private float risingTime = .3f;
+	private bool isUsingJetpack;
+	private float risingTime = .2f;
 	private float axisMovementX;
-	private float axisMovementY;
+	private float jetPackMovement;
 	private float axisRotationX;
 	private float axisRotationY;
 	private bool isTryingToJump;
@@ -30,12 +32,13 @@ public class PlayerMovement : MonoBehaviour {
 		axisMovementX = Input.GetAxisRaw("LeftStickHorizontal");
 		axisRotationX = Input.GetAxisRaw("RightStickHorizontal");
 		axisRotationY = Input.GetAxisRaw("RightStickVertical");
-		//axisMovementY = Input.GetAxisRaw("JetPack");
+		jetPackMovement = Input.GetAxisRaw("JetPack");
 
 		setIsTryingToJump(Input.GetButton("Jump"));
-		Debug.Log(isTryingToJump);
-		Debug.Log(isRising);
-		Debug.Log(risingTime);
+		//Debug.Log(jetPackMovement);
+		//Debug.Log(isTryingToJump);
+		//Debug.Log(isRising);
+		//Debug.Log(risingTime);
 
 	}
 
@@ -69,9 +72,11 @@ public class PlayerMovement : MonoBehaviour {
 			tryJump();
 		}else if(isRising){
 			continueRising();
+		}else if(jetPackMovement > 0){
+			tryUsingJetPack();
 		}else{
 			deltaMovementY = 0f;
-			deltaMovementY += 0.5f *objectGravity * Time.fixedDeltaTime;
+			deltaMovementY += 1000f * objectGravity * Time.fixedDeltaTime;
 		}
 
 		// Adjust for time change
@@ -84,6 +89,7 @@ public class PlayerMovement : MonoBehaviour {
 	void tryJump(){
 		setIsRising(true);
 		deltaMovementY = jumpSpeed;
+		setIsTryingToJump(false);
 	}
 
 	void setIsRising(bool risingValue){
@@ -97,6 +103,10 @@ public class PlayerMovement : MonoBehaviour {
 		}else{
 			setIsRising(false);
 		}
+	}
+
+	void tryUsingJetPack(){
+		deltaMovementY = jetPackMovement * jetPackSpeed; 
 	}
 
 	public void setRisingTime(float risingTimeValue){

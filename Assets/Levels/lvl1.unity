@@ -610,9 +610,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 98.1
-  jumpSpeed: 16.62
+  jumpSpeed: 9.81
+  jetPackSpeed: 1962
   lerpSpeed: 0.2
-  objectGravity: -1200
+  objectGravity: -9.81
   playerRigidbody: {fileID: 1425852017}
   lookSensitivityX: 50
   lookSensitivityY: 50
@@ -1031,7 +1032,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1795620946}
   m_LocalRotation: {x: -0.14498463, y: 0.008904208, z: -0.0013051329, w: -0.98939306}
-  m_LocalPosition: {x: 53.492413, y: 3.8691678, z: -42.941}
+  m_LocalPosition: {x: 53.49241, y: 3.8691678, z: -42.941}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1818251539}

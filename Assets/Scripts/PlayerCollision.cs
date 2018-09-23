@@ -7,7 +7,13 @@ public class PlayerCollision : MonoBehaviour {
 	void OnCollisionEnter(Collision collisionInfo){
 		if(collisionInfo.collider.tag.Equals("Ground")){
 			playerMovement.setIsOnGround(true);
-			playerMovement.setRisingTime(.3f);
+			playerMovement.setRisingTime(.2f);
+		}
+	}
+
+	void OnCollisionStay(Collision collisionInfo){
+		if(collisionInfo.collider.tag.Equals("Ground")){
+			playerMovement.setIsOnGround(true);
 		}
 	}
 
